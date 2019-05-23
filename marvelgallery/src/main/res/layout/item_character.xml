@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.soongon.marvelgallery.view.views.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                        xmlns:tools="http://schemas.android.com/tools"
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="match_parent"
+                                                        android:orientation="horizontal"
+                                                        android:padding="@dimen/element_padding"
+                                                        android:foregroundGravity="center_horizontal">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/characterImageView"
+    />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/nameTextView" android:gravity="center"
+            android:paddingLeft="10dp" android:paddingRight="10dp" android:shadowColor="#111" android:shadowDx="5"
+            android:shadowDy="5" android:shadowRadius="0.01" android:textColor="@android:color/white"
+            android:textSize="@dimen/standard_text_size" tools:text="Some name"/>
+</com.soongon.marvelgallery.view.views.SquareFrameLayout>
