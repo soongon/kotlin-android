@@ -1,1 +1,1 @@
-include ':app', ':dinnerdecider'
+include ':app', ':dinnerdecider', ':marvelgallery'
