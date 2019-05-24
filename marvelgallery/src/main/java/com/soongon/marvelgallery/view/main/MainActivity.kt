@@ -3,10 +3,14 @@ package com.soongon.marvelgallery.view.main
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.Window
 import com.soongon.marvelgallery.R
+import com.soongon.marvelgallery.data.MarvelRepositoryImpl
 import com.soongon.marvelgallery.model.MarvelCharacter
 import com.soongon.marvelgallery.view.common.CharacterAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +20,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = CharacterAdapter(getDataFromSource())
+
+        val repo = MarvelRepositoryImpl()
+        repo.getAllCharacters()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({ items ->
+                items.forEach {
+                    Log.i("JSON", it.toString())
+                }
+                //recyclerView.adapter = CharacterAdapter(list)
+            }, {
+                Log.i("JSON", it.toString())
+            })
+
     }
 
     private fun getDataFromSource() = listOf(
