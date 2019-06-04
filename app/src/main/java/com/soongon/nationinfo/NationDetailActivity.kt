@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.soongon.nationinfo.service.network.FakeApi
+import com.soongon.nationinfo.service.network.retrofit
 import kotlinx.android.synthetic.main.activity_nation_detail.*
 import java.io.InputStream
 import java.io.InputStreamReader
+import kotlin.concurrent.thread
 
 class NationDetailActivity : AppCompatActivity() {
 
@@ -18,6 +21,20 @@ class NationDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nation_detail)
+
+        thread {
+            val body =
+                retrofit.create(FakeApi::class.java)
+                    .getPosts()
+                    .execute().body()
+
+            body?.forEach {
+                Log.i("Post", it.toString())
+            }
+
+            //Log.i("Retrofit", body.toString())
+
+        }
 
         val nation = intent.getStringExtra(EXTRA_NATION_NAME)
         val data = getDataFromName(nation)
@@ -39,32 +56,15 @@ class NationDetailActivity : AppCompatActivity() {
         return null
     }
 
-    private fun getResourceId(selected: String): Int {
-        var resourceId: Int = 0
-
+    private fun getResourceId(selected: String) =
         when(selected) {
-            "벨기에" -> {
-                resourceId = R.drawable.l_flag_belgium
-            }
-            "아르헨티나" -> {
-                resourceId = R.drawable.l_flag_argentina
-            }
-            "브라질" -> {
-                resourceId = R.drawable.l_flag_brazil
-            }
-            "캐나다" -> {
-                resourceId = R.drawable.l_flag_canada
-            }
-            "중국" -> {
-                resourceId = R.drawable.l_flag_china
-            }
-            else -> {
-                resourceId = 0
-            }
+            "벨기에" -> R.drawable.l_flag_belgium
+            "아르헨티나" -> R.drawable.l_flag_argentina
+            "브라질" -> R.drawable.l_flag_brazil
+            "캐나다" -> R.drawable.l_flag_canada
+            "중국" -> R.drawable.l_flag_china
+            else -> 0
         }
-
-        return resourceId
-    }
 
     private fun initView(data: NationDetail?) {
         nameTextView.text = data?.name
