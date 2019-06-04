@@ -7,17 +7,11 @@
         android:layout_height="match_parent"
         tools:context=".view.main.MainActivity" android:id="@+id/charactersView" android:background="@android:color/white">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/swipeRefreshView">
-
-        <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclerView"
-                android:scrollbars="vertical"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:id="@+id/recyclerView"
+            android:scrollbars="vertical"/>
     <TextView
             android:text="@string/marvel_copyright_notice"
             android:layout_width="match_parent"
